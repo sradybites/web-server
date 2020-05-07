@@ -21,7 +21,7 @@ Don't submit any pull requests right now, I will decline them. Backend developme
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
 ## Acknowledgments
 
