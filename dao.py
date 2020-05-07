@@ -7,6 +7,9 @@ def get_all_players():
 
 
 def create_player(username):
+    duplicate_test = Player.query.filter(Player.username.like(username)).first()
+    if duplicate_test is not None:
+        return None
     new_player = Player(
         username=username
     )
@@ -28,7 +31,7 @@ def delete_player(player_id):
         return None
     db.session.delete(player)
     db.session.commit()
-    return player.serialize()
+    return {'id': player_id}
 
 
 def change_player_name(player_id, new_name):
@@ -45,6 +48,9 @@ def get_all_guilds():
 
 
 def create_guild(name):
+    duplicate_test = Guild.query.filter(Guild.name.like(name)).first()
+    if duplicate_test is not None:
+        return None
     new_guild = Guild(
         name=name
     )
@@ -82,7 +88,11 @@ def remove_player_from_guild(player_id, guild_id):
     return player.serialize()
 
 
-def rename_guild(new_name, guild_id):
+def rename_guild(guild_id, new_name):
+    duplicate_test = Guild.query.filter(Guild.name.like(new_name)).first()
+    if duplicate_test is not None:
+        return None
+
     guild = Guild.query.filter_by(id=guild_id).first()
     if guild.name == new_name:
         return None
@@ -111,7 +121,13 @@ def initialize_match(player_id):
 def add_player_to_match(player_id, match_id):
     player2 = Player.query.filter_by(id=player_id).first()
     match = Match.query.filter_by(id=match_id).first()
+
+    # TODO raise exceptions rather than returning None
     if match is None:
+        return None
+    if len(match.players) > 1:
+        return None
+    if player2 in match.players:
         return None
     match.players.append(player2)
     db.session.commit()
@@ -122,6 +138,8 @@ def start_match(match_id):
     match = Match.query.filter_by(id=match_id).first()
     if match is None:
         return None
+    if match.status != MATCH_INIT:
+        return None
     match.status = MATCH_ACTIVE
     db.session.commit()
 
@@ -129,6 +147,8 @@ def start_match(match_id):
 def end_match(match_id, winner_id):
     match = Match.query.filter_by(id=match_id).first()
     if match is None:
+        return None
+    if match.status != MATCH_ACTIVE:
         return None
     match.status = MATCH_DONE
     match.winner = winner_id
