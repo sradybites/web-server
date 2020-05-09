@@ -1,0 +1,6 @@
+__pycache__
+venv
+api
+LICENSE
+README.md
+*.env
