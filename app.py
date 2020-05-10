@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 from db import db
 import dao
 from consts import *
@@ -14,6 +14,11 @@ app.config["SQLALCHEMY_ECHO"] = True
 db.init_app(app)
 with app.app_context():
     db.create_all()
+
+
+@app.route('/')
+def landing():
+    return render_template("index.html")
 
 
 ### base serialized responses ###
