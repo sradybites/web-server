@@ -1,10 +1,10 @@
-# Backend layer for a small web game
+# Backend layer for my website
 
-This project is being completed for my final project in the Intro to Backend Development course at Cornell. After finishing, I intend to create a web game that operates on top of this project. For now, it will solely contain the backend for such a game, including object-relational mapping and data access tools and routes, with filler code where game-specific logic would be implemented.
+This project started as my final project in the Intro to Backend Development course at Cornell. I want to transform this into my own personal website, but I also want to create a small web game that I will also host on this server.
 
 ## Deployment
 
-This system will be containerized with Docker to be deployed on a server running Ubuntu. I intend to host my server with Google Cloud services. You may do whatever you choose, although I recommend running Ubuntu.
+This system will be containerized with Docker to be deployed with some cloud service. I intend to host my server with Google Cloud's Kubernetes engine.
 
 ## Built With
 
